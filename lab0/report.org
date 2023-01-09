@@ -1,0 +1,142 @@
+* Lab 0 Report
+** Problems 
+*** AttributeError: module 'cgi' has no attribute 'escape'
+**** Stack
+#+BEGIN_SRC python
+  File "/home/noman1001/Projects/AILab/lab0/grading.py", line 297, in addMessage
+      message = cgi.escape(message)
+  AttributeError: module 'cgi' has no attribute 'escape'
+#+END_SRC
+**** Fix
+      Replaced cgi.escape with html.escape
+*** No such file or directory: 'shopAroundTown.py'
+**** Stack
+#+BEGIN_SRC python
+  Traceback (most recent call last):
+    File "/home/noman1001/Projects/AILab/lab0/autograder.py", line 348, in <module>
+      moduleDict[moduleName] = loadModuleFile(moduleName, os.path.join(options.codeRoot, cp))
+    File "/home/noman1001/Projects/AILab/lab0/autograder.py", line 137, in loadModuleFile
+      with open(filePath, 'r') as f:
+  FileNotFoundError: [Errno 2] No such file or directory: 'shopAroundTown.py'
+#+END_SRC
+**** Fix
+      Removed shopAroundTown.py from STUDENT_CODE_DEFAULT in projectParams.py file
+
+** Question 1
+*** Solution
+#+BEGIN_SRC python
+  def add(a, b):
+    """Return the sum of a and b"""
+    return a + b
+#+END_SRC
+** Question 2
+*** Solution
+#+BEGIN_SRC python
+  def buyLotsOfFruit(orderList):
+    ""
+        orderList: List of (fruit, numPounds) tuples
+        Returns cost of order
+    """
+    # If there is some fruit in the list which does not appear in fruitPrices it should print an error message and
+    # return None.
+    total_cost = 0.0
+    for fruit, numPounds in orderList:
+        if fruit not in fruitPrices:
+            print('Error: fruit not in fruitPrices')
+            return None
+        else:
+            total_cost += fruitPrices[fruit] * numPounds
+
+    return total_cost
+#+END_SRC
+*** Findings
+**** Fruitshop.getPriceOfOrder already provides a solution for this problem
+** Question 3
+*** Solution
+#+BEGIN_SRC python
+  def shopSmart(orderList, fruitShops):
+    """
+        orderList: List of (fruit, numPound) tuples
+        fruitShops: List of FruitShops
+    """
+    best_shop = None
+    min_cost = float('inf')
+
+    for shop in fruitShops:
+        cost = shop.getPriceOfOrder(orderList)
+        if cost < min_cost:
+            min_cost = cost
+            best_shop = shop
+
+    return best_shop
+#+END_SRC
+
+
+** Evaluation
+/home/noman1001/sdk/miniconda3/envs/AILab/bin/python /home/noman1001/Projects/AILab/lab0/autograder.py
+/home/noman1001/Projects/AILab/lab0/autograder.py:18: DeprecationWarning: the imp module is deprecated in favour of importlib and slated for removal in Python 3.12; see the module's documentation for alternative uses
+  import imp
+Starting on 1-9 at 12:27:26
+
+Question q1
+===========
+
+*** PASS: test_cases/q1/addition1.test
+*** 	add(a,b) returns the sum of a and b
+*** PASS: test_cases/q1/addition2.test
+*** 	add(a,b) returns the sum of a and b
+*** PASS: test_cases/q1/addition3.test
+*** 	add(a,b) returns the sum of a and b
+
+### Question q1: 1/1 ###
+
+
+Question q2
+===========
+
+Error: fruit not in fruitPrices
+*** PASS: test_cases/q2/food_price1.test
+*** 	buyLotsOfFruit correctly computes the cost of the order
+*** PASS: test_cases/q2/food_price2.test
+*** 	buyLotsOfFruit correctly computes the cost of the order
+*** PASS: test_cases/q2/food_price3.test
+*** 	buyLotsOfFruit correctly computes the cost of the order
+
+### Question q2: 1/1 ###
+
+
+Question q3
+===========
+
+Welcome to shop1 fruit shop
+Welcome to shop2 fruit shop
+*** PASS: test_cases/q3/select_shop1.test
+*** 	shopSmart(order, shops) selects the cheapest shop
+Welcome to shop1 fruit shop
+Welcome to shop2 fruit shop
+*** PASS: test_cases/q3/select_shop2.test
+*** 	shopSmart(order, shops) selects the cheapest shop
+Welcome to shop1 fruit shop
+Welcome to shop2 fruit shop
+Welcome to shop3 fruit shop
+*** PASS: test_cases/q3/select_shop3.test
+*** 	shopSmart(order, shops) selects the cheapest shop
+
+### Question q3: 1/1 ###
+
+
+Finished at 12:27:26
+
+Provisional grades
+==================
+Question q1: 1/1
+Question q2: 1/1
+Question q3: 1/1
+------------------
+Total: 3/3
+
+Your grades are NOT yet registered.  To register your grades, make sure
+to follow your instructor's guidelines to receive credit on your project.
+
+
+Process finished with exit code 0

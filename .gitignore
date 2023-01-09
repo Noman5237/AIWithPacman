@@ -6,7 +6,6 @@
 *$
 *.bak
 *.diff
-*.org
 .project
 *.rej
 .settings/
