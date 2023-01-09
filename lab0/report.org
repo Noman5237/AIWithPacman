@@ -73,70 +73,72 @@
 
 
 ** Evaluation
-/home/noman1001/sdk/miniconda3/envs/AILab/bin/python /home/noman1001/Projects/AILab/lab0/autograder.py
-/home/noman1001/Projects/AILab/lab0/autograder.py:18: DeprecationWarning: the imp module is deprecated in favour of importlib and slated for removal in Python 3.12; see the module's documentation for alternative uses
-  import imp
-Starting on 1-9 at 12:27:26
+#+BEGIN_SRC text
+  /home/noman1001/sdk/miniconda3/envs/AILab/bin/python /home/noman1001/Projects/AILab/lab0/autograder.py
+  /home/noman1001/Projects/AILab/lab0/autograder.py:18: DeprecationWarning: the imp module is deprecated in favour of importlib and slated for removal in Python 3.12; see the module's documentation for alternative uses
+    import imp
+  Starting on 1-9 at 12:27:26
 
-Question q1
-===========
+  Question q1
+  ===========
 
-*** PASS: test_cases/q1/addition1.test
-*** 	add(a,b) returns the sum of a and b
-*** PASS: test_cases/q1/addition2.test
-*** 	add(a,b) returns the sum of a and b
-*** PASS: test_cases/q1/addition3.test
-*** 	add(a,b) returns the sum of a and b
+  *** PASS: test_cases/q1/addition1.test
+  *** 	add(a,b) returns the sum of a and b
+  *** PASS: test_cases/q1/addition2.test
+  *** 	add(a,b) returns the sum of a and b
+  *** PASS: test_cases/q1/addition3.test
+  *** 	add(a,b) returns the sum of a and b
 
-### Question q1: 1/1 ###
-
-
-Question q2
-===========
-
-Error: fruit not in fruitPrices
-*** PASS: test_cases/q2/food_price1.test
-*** 	buyLotsOfFruit correctly computes the cost of the order
-*** PASS: test_cases/q2/food_price2.test
-*** 	buyLotsOfFruit correctly computes the cost of the order
-*** PASS: test_cases/q2/food_price3.test
-*** 	buyLotsOfFruit correctly computes the cost of the order
-
-### Question q2: 1/1 ###
+  ### Question q1: 1/1 ###
 
 
-Question q3
-===========
+  Question q2
+  ===========
 
-Welcome to shop1 fruit shop
-Welcome to shop2 fruit shop
-*** PASS: test_cases/q3/select_shop1.test
-*** 	shopSmart(order, shops) selects the cheapest shop
-Welcome to shop1 fruit shop
-Welcome to shop2 fruit shop
-*** PASS: test_cases/q3/select_shop2.test
-*** 	shopSmart(order, shops) selects the cheapest shop
-Welcome to shop1 fruit shop
-Welcome to shop2 fruit shop
-Welcome to shop3 fruit shop
-*** PASS: test_cases/q3/select_shop3.test
-*** 	shopSmart(order, shops) selects the cheapest shop
+  Error: fruit not in fruitPrices
+  *** PASS: test_cases/q2/food_price1.test
+  *** 	buyLotsOfFruit correctly computes the cost of the order
+  *** PASS: test_cases/q2/food_price2.test
+  *** 	buyLotsOfFruit correctly computes the cost of the order
+  *** PASS: test_cases/q2/food_price3.test
+  *** 	buyLotsOfFruit correctly computes the cost of the order
 
-### Question q3: 1/1 ###
+  ### Question q2: 1/1 ###
 
 
-Finished at 12:27:26
+  Question q3
+  ===========
 
-Provisional grades
-==================
-Question q1: 1/1
-Question q2: 1/1
-Question q3: 1/1
-------------------
-Total: 3/3
+  Welcome to shop1 fruit shop
+  Welcome to shop2 fruit shop
+  *** PASS: test_cases/q3/select_shop1.test
+  *** 	shopSmart(order, shops) selects the cheapest shop
+  Welcome to shop1 fruit shop
+  Welcome to shop2 fruit shop
+  *** PASS: test_cases/q3/select_shop2.test
+  *** 	shopSmart(order, shops) selects the cheapest shop
+  Welcome to shop1 fruit shop
+  Welcome to shop2 fruit shop
+  Welcome to shop3 fruit shop
+  *** PASS: test_cases/q3/select_shop3.test
+  *** 	shopSmart(order, shops) selects the cheapest shop
 
-Your grades are NOT yet registered.  To register your grades, make sure
-to follow your instructor's guidelines to receive credit on your project.
+  ### Question q3: 1/1 ###
 
 
-Process finished with exit code 0
+  Finished at 12:27:26
+
+  Provisional grades
+  ==================
+  Question q1: 1/1
+  Question q2: 1/1
+  Question q3: 1/1
+  ------------------
+  Total: 3/3
+
+  Your grades are NOT yet registered.  To register your grades, make sure
+  to follow your instructor's guidelines to receive credit on your project.
+
+
+  Process finished with exit code 0
+#+END_SRC
