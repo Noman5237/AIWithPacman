@@ -33,7 +33,7 @@
 *** Solution
 #+BEGIN_SRC python
   def buyLotsOfFruit(orderList):
-    ""
+    """
         orderList: List of (fruit, numPounds) tuples
         Returns cost of order
     """
