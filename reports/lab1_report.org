@@ -1,0 +1,203 @@
+* Lab 1 Report
+** Question 1: Finding a Fixed Food Dot using Depth First Search
+*** Solution
+#+BEGIN_SRC python
+def depthFirstSearch(problem: SearchProblem):
+    visited = []
+    def recursiveDfs(problem: SearchProblem, state):
+        nonlocal visited
+        visited.append(state[0])
+        if problem.isGoalState(state[0]):
+            return []
+        successors = problem.getSuccessors(state[0])
+        if len(successors) == 0:
+            return None
+        for successor in successors:
+            if successor[0] in visited:
+                continue
+            traversed = recursiveDfs(problem, successor)
+            if traversed is not None:
+                location, direction, cost = successor
+                traversed.append(direction)
+                return traversed
+
+    moves = recursiveDfs(problem, (problem.getStartState(), '', 0))
+    moves.reverse()
+    return moves
+#+END_SRC
+
+** Question 2: Breadth First Search
+*** Solution
+#+BEGIN_SRC python
+def breadthFirstSearch(problem: SearchProblem):
+    startState = problem.getStartState()
+    visited = [startState]
+    queue = [startState]
+    path = {
+        startState: []
+    }
+
+    # while queue is not empty
+    while len(queue) != 0:
+        # pop from the queue
+        node = queue.pop(0)
+
+        if problem.isGoalState(node):
+            return path[node]
+
+        successors = problem.getSuccessors(node)
+        for successor in successors:
+            location, direction, cost = successor
+            if location not in visited:
+                visited.append(location)
+                queue.append(location)
+                path[location] = path[node] + [direction]
+#+END_SRC
+** Question 3: Varying the Cost Function
+*** Solution
+#+BEGIN_SRC python
+def uniformCostSearch(problem: SearchProblem):
+    startState = problem.getStartState()
+    costs = {
+        startState: 0
+    }
+    path = {
+        startState: []
+    }
+
+    visited = [startState]
+    queue = [startState]
+
+    while len(queue) != 0:
+        node = queue.pop(0)
+        visited.append(node)
+
+        if problem.isGoalState(node):
+            return path[node]
+
+        successors = problem.getSuccessors(node)
+        for successor in successors:
+            location, direction, cost = successor
+            if location in visited:
+                continue
+
+            if location not in queue:
+                queue.append(location)
+            if location not in costs:
+                costs[location] = costs[node] + cost
+                path[location] = path[node] + [direction]
+            elif costs[node] + cost < costs[location]:
+                costs[location] = costs[node] + cost
+                path[location] = path[node] + [direction]
+
+        queue.sort(key=lambda x: costs[x])
+#+END_SRC
+** Evaluation
+#+BEGIN_SRC text
+    /home/noman1001/sdk/miniconda3/envs/AILab/bin/python /home/noman1001/Projects/AILab/pacman/autograder.py --test-directory test_cases_usearch
+    /home/noman1001/Projects/AILab/pacman/autograder.py:17: DeprecationWarning: the imp module is deprecated in favour of importlib and slated for removal in Python 3.12; see the module's documentation for alternative uses
+
+    import imp
+    Starting on 3-6 at 8:27:50
+
+    Question q1
+    ===========
+    *** PASS: test_cases_usearch/q1/graph_backtrack.test
+    *** 	solution:		['1:A->C', '0:C->G']
+    *** 	expanded_states:	['A', 'B', 'C']
+    *** PASS: test_cases_usearch/q1/graph_bfs_vs_dfs.test
+    *** 	solution:		['0:A->B', '0:B->D', '0:D->G']
+    *** 	expanded_states:	['A', 'B', 'D']
+    *** PASS: test_cases_usearch/q1/graph_infinite.test
+    *** 	solution:		['0:A->B', '1:B->C', '1:C->G']
+    *** 	expanded_states:	['A', 'B', 'C']
+    *** PASS: test_cases_usearch/q1/graph_manypaths.test
+    *** 	solution:		['0:A->B1', '0:B1->C', '0:C->D', '0:D->E1', '0:E1->F', '0:F->G']
+    *** 	expanded_states:	['A', 'B1', 'C', 'D', 'E1', 'F']
+    *** PASS: test_cases_usearch/q1/pacman_1.test
+    *** 	pacman layout:		mediumMaze
+    *** 	solution length: 246
+    *** 	nodes expanded:		269
+
+    ### Question q1: 3/3 ###
+
+
+    Question q2
+    ===========
+    *** PASS: test_cases_usearch/q2/graph_backtrack.test
+    *** 	solution:		['1:A->C', '0:C->G']
+    *** 	expanded_states:	['A', 'B', 'C', 'D']
+    *** PASS: test_cases_usearch/q2/graph_bfs_vs_dfs.test
+    *** 	solution:		['1:A->G']
+    *** 	expanded_states:	['A', 'B']
+    *** PASS: test_cases_usearch/q2/graph_infinite.test
+    *** 	solution:		['0:A->B', '1:B->C', '1:C->G']
+    *** 	expanded_states:	['A', 'B', 'C']
+    *** PASS: test_cases_usearch/q2/graph_manypaths.test
+    *** 	solution:		['1:A->C', '0:C->D', '1:D->F', '0:F->G']
+    *** 	expanded_states:	['A', 'B1', 'C', 'B2', 'D', 'E1', 'F', 'E2']
+    *** PASS: test_cases_usearch/q2/pacman_1.test
+    *** 	pacman layout:		mediumMaze
+    *** 	solution length: 68
+    *** 	nodes expanded:		269
+
+    ### Question q2: 3/3 ###
+
+
+    Question q3
+    ===========
+    *** PASS: test_cases_usearch/q3/graph_backtrack.test
+    *** 	solution:		['1:A->C', '0:C->G']
+    *** 	expanded_states:	['A', 'B', 'C', 'D']
+    *** PASS: test_cases_usearch/q3/graph_bfs_vs_dfs.test
+    *** 	solution:		['1:A->G']
+    *** 	expanded_states:	['A', 'B']
+    *** PASS: test_cases_usearch/q3/graph_infinite.test
+    *** 	solution:		['0:A->B', '1:B->C', '1:C->G']
+    *** 	expanded_states:	['A', 'B', 'C']
+    *** PASS: test_cases_usearch/q3/graph_manypaths.test
+    *** 	solution:		['1:A->C', '0:C->D', '1:D->F', '0:F->G']
+    *** 	expanded_states:	['A', 'B1', 'C', 'B2', 'D', 'E1', 'F', 'E2']
+    *** PASS: test_cases_usearch/q3/ucs_0_graph.test
+    *** 	solution:		['Right', 'Down', 'Down']
+    *** 	expanded_states:	['A', 'B', 'D', 'C', 'G']
+    *** PASS: test_cases_usearch/q3/ucs_1_problemC.test
+    *** 	pacman layout:		mediumMaze
+    *** 	solution length: 68
+    *** 	nodes expanded:		269
+    *** PASS: test_cases_usearch/q3/ucs_2_problemE.test
+    *** 	pacman layout:		mediumMaze
+    *** 	solution length: 74
+    *** 	nodes expanded:		260
+    *** PASS: test_cases_usearch/q3/ucs_3_problemW.test
+    *** 	pacman layout:		mediumMaze
+    *** 	solution length: 152
+    *** 	nodes expanded:		173
+    *** PASS: test_cases_usearch/q3/ucs_4_testSearch.test
+    *** 	pacman layout:		testSearch
+    *** 	solution length: 7
+    *** 	nodes expanded:		14
+    *** PASS: test_cases_usearch/q3/ucs_5_goalAtDequeue.test
+    *** 	solution:		['1:A->B', '0:B->C', '0:C->G']
+    *** 	expanded_states:	['A', 'B', 'C']
+
+    ### Question q3: 3/3 ###
+
+
+    Finished at 8:27:50
+
+    Provisional grades
+    ==================
+    Question q1: 3/3
+    Question q2: 3/3
+    Question q3: 3/3
+    ------------------
+    Total: 9/9
+
+    Your grades are NOT yet registered.  To register your grades, make sure
+
+    to follow your instructor's guidelines to receive credit on your project.
+
+
+    Process finished with exit code 0
+#+END_SRC
