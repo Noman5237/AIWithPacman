@@ -1,0 +1,40 @@
+* Lab 2 Report
+** Question 1:
+*** Solution (in progress)
+#+BEGIN_SRC python
+def aStarSearch(problem, heuristic=nullHeuristic):
+    startState = problem.getStartState()
+    costs = {
+        startState: 0
+    }
+    path = {
+        startState: []
+    }
+
+    visited = [startState]
+    queue = [startState]
+
+    while len(queue) != 0:
+        node = queue.pop(0)
+        visited.append(node)
+
+        if problem.isGoalState(node):
+            return path[node]
+
+        successors = problem.getSuccessors(node)
+        for successor in successors:
+            location, direction, cost = successor
+            if location in visited:
+                continue
+
+            if location not in queue:
+                queue.append(location)
+            if location not in costs:
+                costs[location] = costs[node] + cost + heuristic(location, problem)
+                path[location] = path[node] + [direction]
+            elif costs[node] + cost + heuristic(location, problem) < costs[location]:
+                costs[location] = costs[node] + cost + heuristic(location, problem)
+                path[location] = path[node] + [direction]
+
+        queue.sort(key=lambda x: costs[x])
+#+END_SRC
